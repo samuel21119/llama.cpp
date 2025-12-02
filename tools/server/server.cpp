@@ -80,6 +80,11 @@ int main(int argc, char ** argv, char ** envp) {
     if (params.model_alias.empty() && !params.model.name.empty()) {
         params.model_alias = params.model.name;
     }
+    
+    if (params.model_alias.empty() && !params.model.path.empty()) {
+        params.model_alias = params.model.path.substr(params.model.path.find_last_of('/') + 1);
+        params.model_alias = params.model_alias.substr(0, params.model_alias.find_last_of('.'));
+    }
 
     common_init();
 
