@@ -66,7 +66,8 @@ class SettingsStore {
 	 */
 	private getServerDefaults(): Record<string, string | number | boolean> {
 		const serverParams = serverStore.defaultParams;
-		return serverParams ? ParameterSyncService.extractServerDefaults(serverParams) : {};
+		const webuiSettings = serverStore.webuiSettings;
+		return ParameterSyncService.extractServerDefaults(serverParams, webuiSettings);
 	}
 
 	constructor() {
@@ -368,6 +369,10 @@ class SettingsStore {
 	 */
 	getAllConfig(): SettingsConfigType {
 		return { ...this.config };
+	}
+
+	canSyncParameter(key: string): boolean {
+		return ParameterSyncService.canSyncParameter(key);
 	}
 
 	/**
